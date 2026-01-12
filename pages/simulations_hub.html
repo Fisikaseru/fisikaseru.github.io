@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pusat Simulasi - FisikaSeru</title>
   <link rel="stylesheet" href="../css/main.css">
+  <style>
+    body {
+      background: radial-gradient(circle at 20% 20%, rgba(59,130,246,0.08), transparent 35%),
+                  radial-gradient(circle at 80% 0%, rgba(6,182,212,0.08), transparent 30%),
+                  #f8fafc;
+    }
+    .sim-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      border-color: #e2e8f0;
+    }
+    .sim-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 35px -15px rgba(15, 23, 42, 0.2);
+      border-color: rgba(59,130,246,0.3);
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-ready { color: #0f172a; background: #dcfce7; }
+    .badge-dev { color: #0f172a; background: #e0f2fe; }
+  </style>
 </head>
 <body class="bg-background">
   <nav class="bg-white border-b border-border sticky top-0 z-50">
@@ -19,14 +46,26 @@
   </nav>
 
   <main class="container-custom py-8">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl font-heading font-bold">Pilih Simulasi</h2>
-      <p class="text-text-secondary">Jelajahi koleksi simulasi laboratorium virtual.</p>
+    <div class="bg-white/80 backdrop-blur border border-border rounded-3xl shadow-lg overflow-hidden mb-10">
+      <div class="bg-gradient-to-r from-primary-50 via-white to-accent-50 px-6 py-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-wide text-primary font-semibold font-caption">Pusat Laboratorium Virtual</p>
+          <h2 class="text-3xl font-heading font-bold text-text-primary mt-1">Pilih Simulasi Anda</h2>
+          <p class="text-text-secondary mt-2 max-w-3xl">Koleksi eksperimen siap pakai dengan tampilan konsisten seperti halaman utama.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="badge badge-ready">Siap Dipakai</span>
+          <span class="badge badge-dev">Dalam Pengembangan</span>
+        </div>
+      </div>
     </div>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-      <div class="bg-white rounded-2xl border border-border p-6 shadow-md h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Tetes Minyak Millikan</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 shadow-md h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Tetes Minyak Millikan</h3>
+          <span class="badge badge-ready">Siap</span>
+        </div>
         <p class="text-sm text-text-secondary">Menentukan muatan elektron fundamental dari pengukuran tetes minyak.</p>
         <div class="mt-auto pt-4 flex gap-2">
           <a href="simulations/milikan/preliminary.html" class="btn btn-primary rounded-lg px-4 py-2 flex-1 text-center">Mulai</a>
@@ -34,120 +73,165 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Listrik: Medan Listrik</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Listrik: Medan Listrik</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Modul dasar visualisasi medan listrik (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/electricity/electric_field/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Listrik: Rangkaian AC</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Listrik: Rangkaian AC</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Impedansi, fasor, dan respons RLC (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/electricity/ac_circuit/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Gelombang: Celah Ganda</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Gelombang: Celah Ganda</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Pola interferensi intensitas (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/waves/double_slit/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Optik: Lensa & Mata</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Optik: Lensa & Mata</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Persamaan lensa tipis dan diagram sinar (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/waves/lens_eye/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Mekanika: Gerak Parabola</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Mekanika: Gerak Parabola</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Trajektori proyektil (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/mechanics/projectile_motion/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Mekanika: Gerak Orbit</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Mekanika: Gerak Orbit</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Simulasi gravitasi Newton & orbit (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/mechanics/orbital_motion/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Fisika Modern: Efek Fotolistrik</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Fisika Modern: Efek Fotolistrik</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Tegangan henti vs frekuensi (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/modern_physics/photoelectric/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Fisika Modern: Difraksi Elektron</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Fisika Modern: Difraksi Elektron</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Panjang gelombang de Broglie & pola difraksi (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/modern_physics/electron_diffraction/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Termodinamika: Diagram P–V</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Termodinamika: Diagram P–V</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Proses termodinamika dan kerja (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/thermodynamics/pv_diagram/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Termodinamika: Perpindahan Kalor</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Termodinamika: Perpindahan Kalor</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Konduksi/konveksi/radiasi (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/thermodynamics/heat_transfer/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Aplikasi: Data Fitting</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Aplikasi: Data Fitting</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Regresi dan analisis residual (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/applied_physics/data_fitting/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Aplikasi: Analisis Error</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Aplikasi: Analisis Error</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Propagasi ketidakpastian (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/applied_physics/error_analysis/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Aplikasi: Deteksi Radiasi</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Aplikasi: Deteksi Radiasi</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Statistik hitungan & background (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/applied_physics/radiation_detection/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Aplikasi: Sel Surya</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Aplikasi: Sel Surya</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Kurva I–V dan efisiensi (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/applied_physics/solar_cell/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col">
-        <h3 class="text-lg font-heading font-semibold text-text-primary mb-2">Aplikasi: Instrumen Virtual</h3>
+      <div class="bg-white rounded-2xl border border-border p-6 opacity-75 h-full flex flex-col sim-card">
+        <div class="flex items-start justify-between mb-2">
+          <h3 class="text-lg font-heading font-semibold text-text-primary">Aplikasi: Instrumen Virtual</h3>
+          <span class="badge badge-dev">Beta</span>
+        </div>
         <p class="text-sm text-text-secondary">Osiloskop/multimeter/signal generator (placeholder).</p>
         <div class="mt-auto pt-4">
           <a href="simulations/applied_physics/virtual_instruments/index.html" class="btn btn-outline rounded-lg px-4 py-2 w-full text-center">Buka (Dalam Pengembangan)</a>

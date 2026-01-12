@@ -101,8 +101,7 @@
                 
                 <!-- Auth Controls / CTA -->
                 <div class="hidden md:flex items-center space-x-3" id="authControls">
-                    <button class="btn btn-outline rounded-lg px-4 py-2.5" id="loginGoogle">Login Google</button>
-                    <button class="btn btn-outline rounded-lg px-4 py-2.5" id="loginGitHub">Login GitHub</button>
+                    <button class="btn btn-outline rounded-lg px-4 py-2.5" id="openLoginModal">Masuk</button>
                     <a href="#" class="btn btn-primary rounded-lg px-6 py-2.5 shadow-md hover:shadow-lg" id="beginMilikan">Mulai Belajar</a>
                 </div>
                 <div class="hidden md:flex items-center space-x-3" id="userControls" style="display:none;">
@@ -127,6 +126,7 @@
                     <a href="simulations_hub.html" class="text-sm font-medium text-text-secondary hover:text-primary transition-colors py-2">Laboratorium</a>
                     <a href="tentang.html" class="text-sm font-medium text-text-secondary hover:text-primary transition-colors py-2">Tentang</a>
                     <a href="kontak.html" class="text-sm font-medium text-text-secondary hover:text-primary transition-colors py-2">Kontak</a>
+                    <button class="btn btn-outline rounded-lg w-full" id="openLoginModalMobile">Masuk</button>
                     <a href="#" class="btn btn-primary rounded-lg w-full mt-2" id="beginMilikanMobile">Mulai Belajar</a>
                 </div>
             </div>
@@ -683,6 +683,53 @@
         </div>
     </section>
 
+    <!-- Unified Login Modal -->
+    <div id="loginModal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl border border-border shadow-2xl w-full max-w-lg overflow-hidden">
+            <div class="p-6 border-b border-border flex items-start justify-between">
+                <div>
+                    <p class="text-xs uppercase tracking-wide text-primary font-semibold font-caption">Akses Pengguna</p>
+                    <h3 class="text-2xl font-heading font-bold text-text-primary mt-1">Masuk ke FisikaSeru</h3>
+                    <p class="text-sm text-text-secondary mt-1">Gunakan email institusi atau pilih provider favorit Anda.</p>
+                </div>
+                <button id="closeLoginModal" class="btn btn-ghost px-3 py-2">Tutup</button>
+            </div>
+
+            <div class="p-6 space-y-6">
+                <form id="loginForm" class="space-y-4">
+                    <div class="space-y-2">
+                        <label for="email" class="text-sm font-medium text-text-primary">Email Institusi</label>
+                        <input id="email" type="email" required class="w-full px-4 py-3 rounded-lg border border-border focus:border-primary focus:outline-none" placeholder="nama@kampus.ac.id">
+                    </div>
+                    <div class="space-y-2">
+                        <label for="password" class="text-sm font-medium text-text-primary">Kata Sandi</label>
+                        <input id="password" type="password" required class="w-full px-4 py-3 rounded-lg border border-border focus:border-primary focus:outline-none" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-full rounded-lg py-3 font-semibold">Masuk</button>
+                </form>
+
+                <div class="flex items-center gap-3 text-xs text-text-tertiary">
+                    <div class="flex-1 h-px bg-border"></div>
+                    <span>atau lanjutkan dengan</span>
+                    <div class="flex-1 h-px bg-border"></div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-3">
+                    <button id="loginGoogle" class="btn btn-outline rounded-lg py-3 flex items-center justify-center gap-2">
+                        <span class="text-sm font-medium">Google Workspace</span>
+                    </button>
+                    <button id="loginGitHub" class="btn btn-outline rounded-lg py-3 flex items-center justify-center gap-2">
+                        <span class="text-sm font-medium">GitHub Education</span>
+                    </button>
+                </div>
+
+                <div id="loginFeedback" class="hidden text-sm font-medium text-success bg-success-50 border border-success-200 rounded-lg px-4 py-3">
+                    Verifikasi awal berhasil. Kami menyiapkan dasbor Anda...
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-text-primary text-white py-12 lg:py-16">
         <div class="container-custom">
@@ -776,6 +823,39 @@
     </footer>
 
     <script>
+        // Unified login modal
+        const loginModal = document.getElementById('loginModal');
+        const openLoginButtons = [
+            document.getElementById('openLoginModal'),
+            document.getElementById('openLoginModalMobile')
+        ].filter(Boolean);
+        const closeLoginBtn = document.getElementById('closeLoginModal');
+        const loginForm = document.getElementById('loginForm');
+        const loginFeedback = document.getElementById('loginFeedback');
+
+        function toggleLoginModal(show) {
+            if (!loginModal) return;
+            loginModal.classList.toggle('hidden', !show);
+            loginModal.classList.toggle('flex', show);
+        }
+
+        openLoginButtons.forEach(btn => btn.addEventListener('click', () => toggleLoginModal(true)));
+        if (closeLoginBtn) closeLoginBtn.addEventListener('click', () => toggleLoginModal(false));
+        if (loginModal) {
+            loginModal.addEventListener('click', (e) => {
+                if (e.target === loginModal) toggleLoginModal(false);
+            });
+        }
+
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (loginFeedback) {
+                    loginFeedback.classList.remove('hidden');
+                }
+            });
+        }
+
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
