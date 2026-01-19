@@ -19,13 +19,27 @@
     0 10px 10px -5px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  padding: 16px;
 }
 
 /* Wide & stable simulation area */
 .simulation-stage {
   position: relative;
-  height: 620px;
+  height: clamp(420px, 60vh, 720px);
   flex-shrink: 0;
+}
+
+.simulation-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 1024px) {
+  .simulation-grid {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.9fr);
+    align-items: start;
+  }
 }
 
 .measurement-overlay {
@@ -226,30 +240,95 @@
   letter-spacing: 0.02em;
 }
 
-.measurement-readout {
-  display: flex;
-  flex-direction: column;
+.measurement-panel {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  display: grid;
+  gap: 16px;
+}
+
+.measurement-header {
+  display: grid;
+  gap: 4px;
+}
+
+.measurement-cards {
+  display: grid;
   gap: 12px;
-  padding: 12px 0;
-  border-top: 1px solid rgba(148, 163, 184, 0.2);
-  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
 }
 
-.readout-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  color: #0f172a;
-  font-size: 0.95rem;
+.measurement-card {
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 6px;
 }
 
-.readout-line strong {
+.measurement-label {
+  font-size: 0.85rem;
+  color: #475569;
   font-weight: 600;
-  color: #1d4ed8;
 }
 
-.readout-separator {
-  color: rgba(148, 163, 184, 0.9);
+.measurement-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.measurement-unit {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.control-bar {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 12px 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.control-sliders {
+  display: grid;
+  gap: 12px;
+}
+
+.control-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+}
+
+.control-methods {
+  display: grid;
+  gap: 10px;
+}
+
+.method-compact {
+  padding: 12px;
+}
+
+.method-compact .method-title {
+  margin-bottom: 4px;
+}
+
+.method-compact .method-note {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .control-bar {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
 }
 
 .data-table-panel {
