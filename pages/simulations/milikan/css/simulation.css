@@ -326,8 +326,21 @@
 
 @media (min-width: 1024px) {
   .control-bar {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.9fr);
     align-items: start;
+  }
+
+  .control-sliders {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+  }
+
+  .control-actions {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .control-methods {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
