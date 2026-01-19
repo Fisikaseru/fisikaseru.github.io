@@ -8,6 +8,12 @@ import { appendMeasurement, loadMeasurements, saveMeasurements } from './storage
 import { initEmbeddedMode, initIframeAutoResize, injectDhwsDataInjector } from './platform.js';
 
 let experimentalData = [];
+const chartInstances = {
+  charge: null,
+  velocity: null,
+  trial: null,
+  stats: null,
+};
 
 export function initStage3() {
   initEmbeddedMode();
@@ -107,14 +113,21 @@ function createTableRow(data) {
 }
 
 function initializeCharts() {
+  renderCharts();
+}
+
+function renderCharts() {
   if (typeof Chart === 'undefined') return;
 
+  const chargeBounds = buildChargeBounds(experimentalData.map((d) => d.corrected));
+
   // Charge Distribution Chart
+  if (chartInstances.charge) chartInstances.charge.destroy();
   const chargeEl = document.getElementById('chargeDistributionChart');
   if (chargeEl && chargeEl.getContext) {
     const chargeCtx = chargeEl.getContext('2d');
     // eslint-disable-next-line no-new
-    new Chart(chargeCtx, {
+    chartInstances.charge = new Chart(chargeCtx, {
       type: 'bar',
       data: {
         labels: buildChargeBinsLabels(),
@@ -146,11 +159,12 @@ function initializeCharts() {
   }
 
   // Velocity Relationship Chart
+  if (chartInstances.velocity) chartInstances.velocity.destroy();
   const velocityEl = document.getElementById('velocityRelationChart');
   if (velocityEl && velocityEl.getContext) {
     const velocityCtx = velocityEl.getContext('2d');
     // eslint-disable-next-line no-new
-    new Chart(velocityCtx, {
+    chartInstances.velocity = new Chart(velocityCtx, {
       type: 'scatter',
       data: {
         datasets: [
@@ -179,11 +193,12 @@ function initializeCharts() {
   }
 
   // Charge vs Trial Chart
+  if (chartInstances.trial) chartInstances.trial.destroy();
   const trialEl = document.getElementById('chargeTrialChart');
   if (trialEl && trialEl.getContext) {
     const trialCtx = trialEl.getContext('2d');
     // eslint-disable-next-line no-new
-    new Chart(trialCtx, {
+    chartInstances.trial = new Chart(trialCtx, {
       type: 'line',
       data: {
         labels: experimentalData.map((d) => `#${d.trial}`),
@@ -207,8 +222,7 @@ function initializeCharts() {
         scales: {
           y: {
             title: { display: true, text: 'Muatan (×10⁻¹⁹ C)' },
-            min: 1.5,
-            max: 1.7,
+            ...(chargeBounds ? { min: chargeBounds.min, max: chargeBounds.max } : {}),
           },
         },
       },
@@ -216,6 +230,7 @@ function initializeCharts() {
   }
 
   // Statistical Chart
+  if (chartInstances.stats) chartInstances.stats.destroy();
   const statEl = document.getElementById('statisticalChart');
   const charges = experimentalData.map((d) => d.corrected).sort((a, b) => a - b);
   if (statEl && statEl.getContext && charges.length) {
@@ -225,7 +240,7 @@ function initializeCharts() {
     const q3 = quantile(charges, 0.75);
 
     // eslint-disable-next-line no-new
-    new Chart(statCtx, {
+    chartInstances.stats = new Chart(statCtx, {
       type: 'bar',
       data: {
         labels: ['Distribusi Muatan'],
@@ -246,8 +261,7 @@ function initializeCharts() {
         scales: {
           y: {
             title: { display: true, text: 'Muatan (×10⁻¹⁹ C)' },
-            min: 1.5,
-            max: 1.7,
+            ...(chargeBounds ? { min: chargeBounds.min, max: chargeBounds.max } : {}),
           },
         },
       },
@@ -354,6 +368,7 @@ function addNewTrial() {
   loadDataFromLocalStorage();
   renderTableOrEmptyState();
   updateStatistics();
+  renderCharts();
   closeModal();
 
   // Clear form
@@ -374,6 +389,7 @@ function deleteRow(trial) {
   loadDataFromLocalStorage();
   renderTableOrEmptyState();
   updateStatistics();
+  renderCharts();
 }
 
 function exportToCSV() {
@@ -627,6 +643,14 @@ function quantile(sortedArr, q) {
     return sortedArr[base] + rest * (sortedArr[base + 1] - sortedArr[base]);
   }
   return sortedArr[base];
+}
+
+function buildChargeBounds(values) {
+  if (!values.length) return null;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const padding = (max - min) * 0.1 || 0.05;
+  return { min: min - padding, max: max + padding };
 }
 
 function agreementPercentFromChargeScaled(q_scaled) {

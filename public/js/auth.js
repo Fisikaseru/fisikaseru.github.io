@@ -271,7 +271,7 @@ const Auth = (() => {
 
   function myLabs() {
     // Guest-first: hub is always accessible
-    window.location.href = '/pages/simulations_hub.html';
+    window.location.href = '/pages/simulasi.html';
   }
 
   function bindEvents() {
