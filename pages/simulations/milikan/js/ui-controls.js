@@ -307,8 +307,26 @@ function updateDataTable(elements, state) {
 }
 
 function updateStage3Unlock(elements, state) {
-  const unlocked = (state.measurements || []).length >= 3;
-  if (unlocked && elements.btnNextStage) {
+  const list = Array.isArray(state.measurements) ? state.measurements : [];
+  const validCount = list.filter((item) => {
+    const charge = Number(item.charge);
+    const corrected = Number(item.chargeCorrected);
+    return Number.isFinite(charge) && Number.isFinite(corrected) && charge > 0 && corrected > 0;
+  }).length;
+  const unlocked = validCount >= 3;
+
+  if (!elements.btnNextStage) return;
+
+  if (unlocked) {
     elements.btnNextStage.classList.remove('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+    elements.btnNextStage.setAttribute('aria-disabled', 'false');
+    elements.btnNextStage.removeAttribute('title');
+  } else {
+    elements.btnNextStage.classList.add('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
+    elements.btnNextStage.setAttribute('aria-disabled', 'true');
+    elements.btnNextStage.setAttribute(
+      'title',
+      'Lengkapi minimal 3 data pengukuran valid (q dan qᶜ) untuk membuka Stage 3.'
+    );
   }
 }
