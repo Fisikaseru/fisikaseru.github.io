@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-white text-neutral antialiased;
+}
+
+::selection {
+  background-color: rgba(15, 138, 61, 0.2);
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+}
+
+.card {
+  @apply rounded-2xl bg-white shadow-card border border-primary/10;
+}
+
+.glass {
+  @apply rounded-2xl border border-white/30 bg-white/80 backdrop-blur;
+}
