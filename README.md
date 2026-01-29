@@ -1,58 +1,59 @@
-# FisikaSeru - GitHub Pages Site
+# FisikaSeru National Platform
 
-FisikaSeru menyediakan laboratorium eksperimen fisika berbasis data dengan pipeline ilmiah lengkap.
+FisikaSeru adalah platform pembelajaran fisika nasional berbasis **Next.js App Router** yang siap deploy ke Vercel. Semua konten publik dapat diakses tanpa login, sedangkan **download PDF laporan** membutuhkan autentikasi Google/GitHub.
 
-🌐 **Live Site**: [fisikaseru.github.io](https://fisikaseru.github.io) (atau fisikaseru.github.io jika repository ini di-rename)
+## Fitur Utama
+- Next.js App Router + TypeScript (production-first).
+- Prisma + Postgres dengan model audit & analytics.
+- OAuth Google/GitHub hanya untuk download laporan.
+- Template stage 01–08 untuk semua simulasi.
+- 3D-ready dengan React Three Fiber.
 
-## Tentang
+## Setup Lokal
 
-Ini adalah versi GitHub Pages dari FisikaSeru yang berisi:
-- Laboratorium fisika interaktif berbasis web
-- Simulasi fisika modern (Milikan, Photoelectric, dll)
-- Simulasi fisika klasik (Projectile Motion, SHM, dll)
-- Antarmuka pembelajaran yang responsif
-
-## Struktur
-
-```
-/css              # Styling Tailwind yang sudah di-build
-/pages            # Halaman HTML (landing, simulations hub, contact, about)
-/labs/simulations # Lab interaktif lengkap dengan stages
-/public           # JavaScript core (physics-core.js, data-analysis.js, dll)
-/core             # Source persamaan fisika
-index.html        # Entry point dengan redirect ke landing page
+```bash
+npm install
 ```
 
-## Penggunaan
+Copy `.env.example` ke `.env` dan isi variabel berikut:
 
-Situs ini adalah static site yang bisa langsung dibuka:
-1. Clone repository ini
-2. Buka `index.html` di browser, atau
-3. Gunakan HTTP server: `npx http-server . -p 8080`
+```
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=...
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+GITHUB_CLIENT_ID=...
+GITHUB_CLIENT_SECRET=...
+DATABASE_URL=postgresql://...
+BLOB_READ_WRITE_TOKEN=...
+```
 
-## GitHub Pages Setup
+### Database & Prisma
 
-Untuk deploy sebagai GitHub Pages:
+```bash
+npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:seed
+```
 
-### Opsi 1: Organization Site (Recommended)
-1. Rename repository ini menjadi `fisikaseru.github.io`
-2. Di Settings → Pages, pilih source: `Deploy from a branch`
-3. Pilih branch `main` dan folder `/` (root)
-4. Site akan tersedia di `https://fisikaseru.github.io`
+### Jalankan Aplikasi
 
-### Opsi 2: Project Site
-1. Di Settings → Pages, enable GitHub Pages
-2. Pilih source: `Deploy from a branch`
-3. Pilih branch `main` dan folder `/` (root)
-4. Site akan tersedia di `https://fisikaseru.github.io/fisikaseru`
+```bash
+npm run dev
+```
 
-## Catatan
+## OAuth Setup
+- Google OAuth: gunakan callback URL `http://localhost:3000/api/auth/callback/google`.
+- GitHub OAuth: gunakan callback URL `http://localhost:3000/api/auth/callback/github`.
 
-- Ini adalah versi static-only dari aplikasi penuh
-- Untuk versi lengkap dengan OAuth dan backend Express, lihat: [farrelfz/fisikaseru-full](https://github.com/farrelfz/fisikaseru-full)
-- Semua persamaan fisika berada di folder `core/`
-- Simulasi menggunakan `public/js/core/physics-core.js` sebagai entrypoint fisika
+## Menambah Simulasi Baru
+1. Copy struktur folder `src/app/labs/simulations/[slug]`.
+2. Perbarui metadata di halaman overview dan `StageClient`.
+3. Pastikan kontrak session di `src/lib/session/types.ts` dipakai tanpa perubahan.
 
-## Lisensi
+## Dokumentasi Teknis
+Lihat folder `docs/` untuk standar UI/UX, template stage 01–08, kontrak session, dan pipeline asset 3D.
 
-MIT
+## Deployment
+Aplikasi siap deploy ke Vercel. Pastikan environment variables dan database Postgres tersedia.
