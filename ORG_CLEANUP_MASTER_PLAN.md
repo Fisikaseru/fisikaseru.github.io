@@ -66,7 +66,7 @@ Repos placeholder lain (jika muncul) | Placeholder | DEPRECATE → ARCHIVE | REA
 
 ## PINNING PLAN (maks 6)
 1. `fisikaseru.github.io` — frontdoor, demo, labs.
-2. `fisikaseru-full` — backend/OAuth (referensi lanjutan).
+2. `farrelfz/fisikaseru-full` — backend/OAuth (referensi lanjutan).
 3. `fisikaseru-design` (opsional) — asset/UX konsisten.
 4. `fisikaseru-content` (opsional) — materi/markdown terkurasi.
 5. `fisikaseru-labs` (hanya jika alternatif multi-repo dipilih; jika tidak, gunakan slot untuk repo showcase simulasi unggulan).
@@ -184,4 +184,3 @@ Terima kasih telah menggunakan Fisikaseru.
 - Saat migrasi, pertahankan slug folder untuk menjaga URL GitHub Pages.
 - Untuk simulasi yang butuh asset khusus, gunakan struktur: `labs/simulations/<slug>/{index.html, README.md, assets/, src/, data/}`.
 - Jalankan link checker ringan pada README/Docs via GitHub Actions (opsional) setelah Phase 1.
-
