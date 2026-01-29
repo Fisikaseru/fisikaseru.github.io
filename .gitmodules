@@ -1,0 +1,3 @@
+[submodule "simulasi"]
+	path = simulasi
+	url = https://github.com/Fisikaseru/fisikaseru-simulasi.git
